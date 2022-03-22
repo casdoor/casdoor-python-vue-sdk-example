@@ -15,7 +15,7 @@
 from flask import make_response, render_template, session
 from flask_restful import Resource
 
-from utils import authz_required
+from .utils import authz_required
 
 
 class Index(Resource):

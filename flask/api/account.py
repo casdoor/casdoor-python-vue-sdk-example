@@ -16,7 +16,7 @@ from casdoor import CasdoorSDK
 from flask import current_app, jsonify, session
 from flask_restful import Resource
 
-from utils import authz_required
+from .utils import authz_required
 
 
 class Account(Resource):

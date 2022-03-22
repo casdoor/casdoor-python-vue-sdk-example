@@ -16,12 +16,12 @@ from casdoor import CasdoorSDK
 from flask import jsonify, redirect, current_app, request, session, make_response, render_template
 from flask_restful import Resource, reqparse
 
-from utils import authz_required
+from .utils import authz_required
 
 
 class SignIn(Resource):
 
-    def get(self):
+    def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('code', required=True)
         parser.add_argument('state', required=True)
@@ -34,7 +34,7 @@ class SignIn(Resource):
         user = sdk.parse_jwt_token(token)
         session['casdoorUser'] = user
 
-        return redirect(request.root_url)
+        return jsonify({'status': 'ok'})
 
 
 class SignOut(Resource):
