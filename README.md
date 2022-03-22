@@ -11,7 +11,7 @@ Frontend | casdoor-vue-sdk | Javascript + Vue | https://github.com/casdoor/casdo
 Backend | casdoor-python-sdk | Python + Flask | https://github.com/casdoor/casdoor-python-vue-sdk-example/tree/master/flask 
 
 ## Installation
-Casnode uses Casdoor to manage members. So you need to create an organization and an application for the example in a Casdoor instance.
+Example uses Casdoor to manage members. So you need to create an organization and an application for the example in a Casdoor instance.
 ### Necessary configuration
 
 #### Get the code
