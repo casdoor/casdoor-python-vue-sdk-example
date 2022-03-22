@@ -52,12 +52,12 @@ certificate = b'''-----BEGIN CERTIFICATE-----
 MIIE+TCCAuGgAwIBAgIDAeJAMA0GCSqGSIb3DQEBCwUAMDYx...
 -----END CERTIFICATE-----'''
 CASDOOR_SDK = CasdoorSDK(
-        endpoint='http://localhost:8000', //casdoor server url
+        endpoint='http://localhost:8000', #casdoor server url
         client_id='4262bea2b293539fe45e',
         client_secret='xxx',
         certificate=certificate,
         org_name='casbin-forum',
-        front_endpoint='http://localhost:8000' //casdoor server url
+        front_endpoint='http://localhost:8000' #casdoor server url
     )
 ```
 
