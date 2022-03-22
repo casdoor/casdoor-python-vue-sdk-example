@@ -14,7 +14,7 @@
 
 from functools import wraps
 
-from flask import redirect, request, session
+from flask import redirect, request, session, jsonify
 
 
 def authz_required(f):
@@ -23,6 +23,6 @@ def authz_required(f):
         if 'casdoorUser' in session.keys():
             return f(*args, **kwargs)
         else:
-            return redirect(request.root_url + 'toLogin')
+            return jsonify({'status': 'error'})
 
     return wrapper
