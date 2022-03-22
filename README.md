@@ -57,7 +57,7 @@ CASDOOR_SDK = CasdoorSDK(
         client_secret='xxx',
         certificate=certificate,
         org_name='casbin-forum',
-        front_endpoint='http://localhost:8000' #casdoor server url
+        front_endpoint='http://localhost:8000'
     )
 ```
 
