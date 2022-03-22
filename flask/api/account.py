@@ -21,6 +21,7 @@ from .utils import authz_required
 
 class Account(Resource):
 
+    @authz_required
     def get(self):
         sdk: CasdoorSDK = current_app.config.get('CASDOOR_SDK')
         user = session.get('casdoorUser')
