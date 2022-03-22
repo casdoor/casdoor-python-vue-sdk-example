@@ -27,4 +27,3 @@ class Account(Resource):
         user = session.get('casdoorUser')
         print(user)
         return jsonify({'status': 'ok', 'data': sdk.get_user(user['name'])})
-
