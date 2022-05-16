@@ -23,8 +23,8 @@ class SignIn(Resource):
 
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('code', required=True)
-        parser.add_argument('state', required=True)
+        parser.add_argument('code', required=True, location='args')
+        parser.add_argument('state', required=True, location='args')
         args = parser.parse_args()
         code = args['code']
         state = args['state']
