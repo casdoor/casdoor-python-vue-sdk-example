@@ -16,31 +16,28 @@
   <h1>Callback</h1>
 </template>
 
-<script>
-import * as config from "@/config";
+<script setup>
+  import { onMounted, getCurrentInstance } from 'vue'
+  import * as config from '@/config'
 
-export default {
-  name: "callbackPage",
-  mounted() {
-    this.login()
-  },
-  methods: {
-    login() {
-      this.signin(config.serverUrl).then((res) => {
-        if (res.status === "ok") {
-          alert("Login success")
-          window.location.href = "/home"
-        } else {
-          alert("Login failed")
-          window.location.href = "/"
-        }
-      })
-    }
+  function login() {
+    const instance = getCurrentInstance()
+    instance.proxy.signin(config.serverUrl).then((res) => {
+      if (res.status === 'ok') {
+        alert('Login success')
+        window.location.href = '/home'
+      } else {
+        alert('Login failed')
+        window.location.href = '/'
+      }
+    })
   }
-}
+
+  onMounted(() => {
+    login()
+  })
 </script>
 
+
 <style scoped>
-
-
 </style>
