@@ -47,42 +47,34 @@
   </div>
 </template>
 
-<script>
-import backend from "@/backend/backend";
+<script setup>
+  import { onMounted, ref } from 'vue'
+  import backend from '@/backend/backend'
 
-export default {
-  name: "homePage",
-  data() {
-    return {
-      account: "",
-      userUrl: "",
-    };
-  },
-  mounted() {
+  let account = ref({})
+
+  function logout() {
+    backend.logOut().then((res) => {
+      if (res['status'] === 'ok') {
+        console.log('success:', res)
+      } else {
+        console.log('fail:', res)
+      }
+      window.location.href = '/'
+    })
+  }
+
+  onMounted(() => {
     backend.getAccount().then((res) => {
       if (res['status'] === 'ok') {
-        this.account = res['data']
-        console.log("success:", this.account)
+        account.value = res['data']
+        console.log('success:', account)
       } else {
-        console.log("fail:", res)
+        console.log('fail:', res)
       }
-    });
-  },
-  methods: {
-    logout() {
-      backend.logOut().then((res) => {
-        if (res['status'] === 'ok') {
-          console.log("success:", res)
-        } else {
-          console.log("fail:", res)
-        }
-        window.location.href = "/";
-      });
-    }
-  }
-}
+    })
+  })
 </script>
 
 <style scoped>
-
 </style>

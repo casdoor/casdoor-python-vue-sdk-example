@@ -27,12 +27,11 @@
 
 </template>
 
-<script>
-import backend from './backend/backend'
+<script setup>
+  import { onMounted } from 'vue'
+  import backend from '@/backend/backend'
 
-export default {
-  name: 'App',
-  mounted() {
+  onMounted(() => {
     // window.location.href = './login'
     let url = window.location.pathname
     if (url === '/') {
@@ -46,9 +45,7 @@ export default {
         }
       })
     }
-
-  }
-}
+  })
 </script>
 
 <style>

@@ -1,4 +1,4 @@
 flask
 flask-restful
 flask-cors
-casdoor>=1.1.3
+casdoor>=1.2.0

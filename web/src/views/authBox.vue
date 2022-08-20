@@ -18,41 +18,32 @@
     <button @click="login">Sign in</button>
   </div>
 </template>
-<script>
-import backend from "@/backend/backend";
 
-export default {
-  name: "authBox",
-  data() {
-    return {
-      account: '',
-    }
-  },
-  mounted() {
+<script setup>
+  import { onMounted, getCurrentInstance } from 'vue'
+  import backend from '@/backend/backend'
+
+  const instance = getCurrentInstance()
+
+  function login() {
+    window.location.href = instance.proxy.getSigninUrl()
+  }
+
+  function signup() {
+    window.location.href = instance.proxy.getSignupUrl()
+  }
+  
+  onMounted(() => {
     //get account
     backend.getAccount().then((res) => {
       if (res['status'] === 'ok') {
-        console.log("success:", res)
+        console.log('success:', res)
       } else {
-        console.log("fail:", res)
+        console.log('fail:', res)
       }
-
     })
-  }
-  ,
-  methods: {
-    //get account
-
-    login() {
-      window.location.href = this.getSigninUrl();
-    },
-    signup() {
-      window.location.href = this.getSignupUrl();
-    },
-  }
-}
+  })
 </script>
 
 <style scoped>
-
 </style>

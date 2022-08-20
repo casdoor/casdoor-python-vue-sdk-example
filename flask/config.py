@@ -16,14 +16,18 @@ import os
 
 from casdoor import CasdoorSDK
 
+certificate = '''-----BEGIN CERTIFICATE-----
+MIIE+TCCAuGgAwIBAgIDAeJAMA0GCSqGSIb3DQEBCwUAMDYx...
+-----END CERTIFICATE-----'''
 
 class Config:
     CASDOOR_SDK = CasdoorSDK(
         endpoint='http://localhost:8000',
         client_id='<client_id>',
         client_secret='<client_secret>',
-        certificate='''<certificate>'''.encode(),
+        certificate=certificate,
         org_name='built-in',
+        application_name='app-built-in',
         front_endpoint='http://localhost:8000'
     )
     REDIRECT_URI = 'http://localhost:5000/api/signin'

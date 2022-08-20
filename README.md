@@ -48,7 +48,7 @@ const config = {
 ```python
 # in ./flask/config.py
 # certificate:get in your casdoor endpoint -> application
-certificate = b'''-----BEGIN CERTIFICATE-----
+certificate = '''-----BEGIN CERTIFICATE-----
 MIIE+TCCAuGgAwIBAgIDAeJAMA0GCSqGSIb3DQEBCwUAMDYx...
 -----END CERTIFICATE-----'''
 CASDOOR_SDK = CasdoorSDK(
