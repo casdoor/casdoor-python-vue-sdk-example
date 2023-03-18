@@ -915,6 +915,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.21.0":
+  version "7.21.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.21.0.tgz#5b55c9d394e5fcf304909a8b00c07dc217b56673"
+  integrity sha512-xwII0//EObnq89Ji5AKYQaRYiW/nZ3llSv29d49IuxPhKbtJoLP+9QUUZ4nVragQVtaVGeZrpB+ZtG/Pdy/POw==
+  dependencies:
+    regenerator-runtime "^0.13.11"
+
 "@babel/template@^7.0.0", "@babel/template@^7.16.7":
   version "7.16.7"
   resolved "https://registry.npmmirror.com/@babel/template/-/template-7.16.7.tgz"
@@ -2144,19 +2151,20 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001317:
   resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001319.tgz"
   integrity sha512-xjlIAFHucBRSMUo1kb5D4LYgcN1M45qdKP++lhqowDpwJwGkpIRTt5qQqnhxjj1vHcI7nrJxWhCC1ATrCEBTcw==
 
-casdoor-js-sdk@^0.2.7:
-  version "0.2.7"
-  resolved "https://registry.npmjs.org/casdoor-js-sdk/-/casdoor-js-sdk-0.2.7.tgz"
-  integrity sha512-pEI7chd6KWDa7dhBxl3zDY+LagG40bBPoxdPMOZ5OG2gFMTXwRQ4Ka1do0giJsd2YTeAU3u6vwP62YmiQVzgSQ==
+casdoor-js-sdk@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/casdoor-js-sdk/-/casdoor-js-sdk-0.8.0.tgz#ce32c49fdfe7f24a8139d676a341ad7e78c50f38"
+  integrity sha512-sxriNa3kG7AIkmJaRnQ554dZozRx+JOCcbqNvp9gxJmbdnMKYSGjg2SU/HaRpnyKtd1GW+ntfK+f2y/wYmnxRg==
 
-casdoor-vue-sdk@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/casdoor-vue-sdk/-/casdoor-vue-sdk-1.0.1.tgz"
-  integrity sha512-IBIdTBGSuVLjdBZeYNknxNfkfB3EYJbzToelKMrYla2bMVX3SHCURUVcU2NqXzbZg4/O26sQC4XmVSX5hMhU9A==
+casdoor-vue-sdk@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/casdoor-vue-sdk/-/casdoor-vue-sdk-1.5.1.tgz#23c7c3870caf3a989a008ebd386f4dd94d6af686"
+  integrity sha512-MLX/1ToNsEekHlkV33KVv6CQbsC+EdxCDA6/lJeZ4jHUsJubHtcWwrGHat7s24QlPSWiCaTk88my8cI5o0LcTA==
   dependencies:
-    casdoor-js-sdk "^0.2.7"
+    "@babel/runtime" "^7.21.0"
+    casdoor-js-sdk "^0.8.0"
     core-js "^3.8.3"
-    vue "^3.2.13"
+    vue-demi latest
 
 case-sensitive-paths-webpack-plugin@^2.3.0:
   version "2.4.0"
@@ -5064,6 +5072,11 @@ regenerate@^1.4.2:
   resolved "https://registry.npmmirror.com/regenerate/-/regenerate-1.4.2.tgz"
   integrity sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==
 
+regenerator-runtime@^0.13.11:
+  version "0.13.11"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
+  integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
+
 regenerator-runtime@^0.13.4:
   version "0.13.9"
   resolved "https://registry.npmmirror.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz"
@@ -5856,6 +5869,11 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmmirror.com/vary/-/vary-1.1.2.tgz"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
+
+vue-demi@latest:
+  version "0.13.11"
+  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"
+  integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
 
 vue-eslint-parser@^8.0.1:
   version "8.3.0"

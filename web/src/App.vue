@@ -30,9 +30,14 @@
 <script setup>
   import { onMounted } from 'vue'
   import backend from '@/backend/backend'
+  import {silentSignin} from 'casdoor-vue-sdk'
 
   onMounted(() => {
-    // window.location.href = './login'
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get("silentSignin")
+    if(key == 1){
+      silentSignin(window.location.href = './home');            
+    }
     let url = window.location.pathname
     if (url === '/') {
       backend.getAccount().then((res) => {
