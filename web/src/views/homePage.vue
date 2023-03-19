@@ -50,7 +50,6 @@
 <script setup>
   import { onMounted, ref } from 'vue'
   import backend from '@/backend/backend'
-
   let account = ref({})
 
   function logout() {
@@ -66,10 +65,12 @@
 
   onMounted(() => {
     backend.getAccount().then((res) => {
+      console.log(res);
       if (res['status'] === 'ok') {
         account.value = res['data']
         console.log('success:', account)
-      } else {
+      }
+      else {
         console.log('fail:', res)
       }
     })
