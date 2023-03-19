@@ -77,3 +77,12 @@ CASDOOR_SDK = CasdoorSDK(
 
 - Now, example runs its front end at port 8080 and runs it's back end at port 5000. You can modify the code and see what will happen.
 
+### Demo videos
+
+1. Normal login:
+
+![normalLogin](./img/normalLogin.gif)
+
+2. Silent login:
+
+![silentLogin](./img/silentLogin.gif)

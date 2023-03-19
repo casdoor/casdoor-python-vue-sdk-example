@@ -17,27 +17,38 @@
 </template>
 
 <script setup>
-  import { onMounted, getCurrentInstance } from 'vue'
-  import * as config from '@/config'
+import { onMounted, getCurrentInstance } from 'vue'
+import * as config from '@/config'
 
-  function login() {
-    const instance = getCurrentInstance()
-    instance.proxy.signin(config.serverUrl).then((res) => {
-      if (res.status === 'ok') {
-        alert('Login success')
-        window.location.href = '/home'
-      } else {
-        alert('Login failed')
-        window.location.href = '/'
+function login() {
+  const instance = getCurrentInstance()
+  instance.proxy.signin(config.serverUrl).then((res) => {
+    if (res.status === 'ok') {
+      alert('Login success')
+      if (inIframe()) {
+        const message = {tag: "Casdoor", type: "SilentSignin", data: "success"};
+        window.parent.postMessage(message, "*");
       }
-    })
-  }
-
-  onMounted(() => {
-    login()
+      window.location.href = '/home'
+    } else {
+      alert('Login failed')
+      window.location.href = '/'
+    }
   })
+}
+
+function inIframe() {
+  try {
+    return window !== window.parent;
+  } catch (e) {
+    return true;
+  }
+}
+
+onMounted(() => {
+  login()
+})
 </script>
 
 
-<style scoped>
-</style>
+<style scoped></style>

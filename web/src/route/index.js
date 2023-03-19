@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import {createRouter, createWebHistory} from "vue-router";
-import callbackPage from '../views/callback.vue';
-import homePage from '../views/home.vue';
+import callbackPage from '../views/callbackPage.vue';
+import homePage from '../views/homePage.vue';
 import authBox from '../views/authBox.vue';
 
 const routes = [

@@ -26,7 +26,7 @@
         </tr>
         <tr>
           <td>user avatar</td>
-          <td><img :src="account.avatar" alt="user avatar" style="width:50px"/></td>
+          <td><img :src="account.avatar" alt="user avatar" style="width:50px" /></td>
         </tr>
         <tr>
           <td>user id</td>
@@ -48,33 +48,33 @@
 </template>
 
 <script setup>
-  import { onMounted, ref } from 'vue'
-  import backend from '@/backend/backend'
+import { onMounted, ref } from 'vue'
+import backend from '@/backend/backend'
+let account = ref({})
 
-  let account = ref({})
-
-  function logout() {
-    backend.logOut().then((res) => {
-      if (res['status'] === 'ok') {
-        console.log('success:', res)
-      } else {
-        console.log('fail:', res)
-      }
-      window.location.href = '/'
-    })
-  }
-
-  onMounted(() => {
-    backend.getAccount().then((res) => {
-      if (res['status'] === 'ok') {
-        account.value = res['data']
-        console.log('success:', account)
-      } else {
-        console.log('fail:', res)
-      }
-    })
+function logout() {
+  backend.logOut().then((res) => {
+    if (res['status'] === 'ok') {
+      console.log('success:', res)
+    } else {
+      console.log('fail:', res)
+    }
+    window.location.href = '/'
   })
+}
+
+onMounted(() => {
+  backend.getAccount().then((res) => {
+    console.log(res);
+    if (res['status'] === 'ok') {
+      account.value = res['data']
+      console.log('success:', account)
+    }
+    else {
+      console.log('fail:', res)
+    }
+  })
+})
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
