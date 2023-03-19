@@ -77,12 +77,12 @@ CASDOOR_SDK = CasdoorSDK(
 
 - Now, example runs its front end at port 8080 and runs it's back end at port 5000. You can modify the code and see what will happen.
 
-​	example:
+### Demo videos
 
-Normal login:
+1. Normal login:
 
-![normalLogin](C:\Users\huk\Desktop\casdoor test\casdoor-python-vue-sdk-example\img\normalLogin.gif)
+![normalLogin](./img/normalLogin.gif)
 
-Silent login:
+2. Silent login:
 
-![silentLogin](C:\Users\huk\Desktop\casdoor test\casdoor-python-vue-sdk-example\img\silentLogin.gif)
+![silentLogin](./img/silentLogin.gif)
