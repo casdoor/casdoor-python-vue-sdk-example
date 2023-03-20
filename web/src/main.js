@@ -18,10 +18,10 @@ import router from './route/index'
 import Casdoor from 'casdoor-vue-sdk'
 
 const config = {
-  serverUrl: "http://localhost:8000",
-  clientId: "4262bea2b293539fe45e",
+  serverUrl: "https://door.casdoor.com",
+  clientId: "294b09fbc17f95daf2fe",
   organizationName: "casbin",
-  appName: "app-casnode",
+  appName: "app-vue-python-example",
   redirectPath: "/callback",
 };
 const app = createApp(App)
