@@ -22,7 +22,7 @@ from .login import SignIn, ToLogin, SignOut
 api_blueprint = Blueprint('api', __name__)
 api = Api(api_blueprint)
 
-api.add_resource(Index, '/')
+# api.add_resource(Index, '/')
 api.add_resource(SignIn, '/api/signin')
 api.add_resource(ToLogin, '/toLogin')
 api.add_resource(SignOut, '/api/signout')
