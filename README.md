@@ -5,10 +5,10 @@
 
 Example contains 2 parts:
 
-| Name     | SDK                | Language         | Source code                                                                 |
-|----------|--------------------|------------------|-----------------------------------------------------------------------------|
-| Frontend | casdoor-vue-sdk    | Javascript + Vue | https://github.com/casdoor/casdoor-python-vue-sdk-example/tree/master/web   |
-| Backend  | casdoor-python-sdk | Python + Flask   | https://github.com/casdoor/casdoor-python-vue-sdk-example/tree/master/flask |
+| Name     | SDK                | Language         | Source code                                                               |
+|----------|--------------------|------------------|---------------------------------------------------------------------------|
+| Frontend | casdoor-vue-sdk    | Javascript + Vue | https://github.com/casdoor/casdoor-python-vue-sdk-example/tree/master/web |
+| Backend  | casdoor-python-sdk | Python + Flask   | https://github.com/casdoor/casdoor-python-vue-sdk-example                 |
 
 ## Installation
 
@@ -25,12 +25,12 @@ git clone https://github.com/casdoor/casdoor-python-vue-sdk-example
 ### Frontend
 
 ```js
-// in ./web/src/config.js
-export let serverUrl = `http://localhost:5000` // port where Python FLASK backend runs
+// in web/src/config.js
+export let serverUrl = `http://localhost:5000` // port where Python backend runs
 ```
 
 ```js
-// in ./web/src/main.js
+// in web/src/main.js
 const config = {
   serverUrl: "https://door.casdoor.com", // Casdoor server URL
   clientId: "294b09fbc17f95daf2fe",
@@ -43,8 +43,8 @@ const config = {
 ### Backend
 
 ```python
-# in ./flask/config.py
-# certificate:get in your casdoor endpoint -> application
+# in config.py
+# certificate:get in your Casdoor server -> application
 certificate = '''-----BEGIN CERTIFICATE-----
 MIIE+TCCAuGgAwIBAgIDAeJAMA0GCSqGSIb3DQEBCwUAMDYxHTAbBgNVBAoTFENh
 c2Rvb3IgT3JnYW5pemF0aW9uMRUwEwYDVQQDEwxDYXNkb29yIENlcnQwHhcNMjEx
@@ -89,14 +89,23 @@ CASDOOR_SDK = CasdoorSDK(
 
   ```shell
   PS .\casdoor-python-vue-sdk-example\web> yarn install
-  PS .\casdoor-python-vue-sdk-example\flask> pip install -r requirements.txt
+  PS .\casdoor-python-vue-sdk-example> pip install -r requirements.txt
   ```
 
 - run
 
+For Linux:
+
+  ```
+  user@machine:/casdoor-python-vue-sdk-example/web$ yarn serve
+  user@machine:/casdoor-python-vue-sdk-example$ ./venv/Scripts/python app.py
+  ```
+
+For Windows:
+
   ```
   PS .\casdoor-python-vue-sdk-example\web> yarn serve
-  PS .\casdoor-python-vue-sdk-example\flask> flask run
+  PS .\casdoor-python-vue-sdk-example> venv\Scripts\python.exe app.py
   ```
 
 - Now, example runs its front end at port 8080 and runs it's back end at port 5000. You can modify the code and see what will happen.

@@ -26,14 +26,14 @@ CORS(app, supports_credentials=True)
 
 @app.route('/')
 def index():
-    return send_from_directory('../web/dist', 'index.html')
+    return send_from_directory('./web/dist', 'index.html')
 
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve_static(path):
     if not path.startswith('api'):
-        dist_dir = os.path.abspath(os.path.join(os.getcwd(), '../web/dist'))
+        dist_dir = os.path.abspath(os.path.join(os.getcwd(), './web/dist'))
         if os.path.exists(os.path.join(dist_dir, path)):
             return send_from_directory(dist_dir, path)
         else:
