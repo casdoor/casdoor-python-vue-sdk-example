@@ -23,6 +23,6 @@ def authz_required(f):
         if 'casdoorUser' in session.keys():
             return f(*args, **kwargs)
         else:
-            return jsonify({'status': 'error'})
+            return jsonify({'status': 'error', 'msg': 'casdoorUser session key does not exist'})
 
     return wrapper

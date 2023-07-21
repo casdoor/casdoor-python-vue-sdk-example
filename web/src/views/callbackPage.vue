@@ -24,14 +24,14 @@ function login() {
   const instance = getCurrentInstance()
   instance.proxy.signin(config.serverUrl).then((res) => {
     if (res.status === 'ok') {
-      alert('Login success')
+      // alert('Login success')
       if (inIframe()) {
         const message = {tag: "Casdoor", type: "SilentSignin", data: "success"};
         window.parent.postMessage(message, "*");
       }
       window.location.href = '/home'
     } else {
-      alert('Login failed')
+      alert(`Login failed: ${res.msg}`)
       window.location.href = '/'
     }
   })

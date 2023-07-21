@@ -26,4 +26,5 @@ class Account(Resource):
         sdk: CasdoorSDK = current_app.config.get('CASDOOR_SDK')
         user = session.get('casdoorUser')
         print(user)
-        return jsonify({'status': 'ok', 'data': sdk.get_user(user['name'])})
+        user2 = sdk.get_user(user['name'])
+        return jsonify({'status': 'ok', 'data': user2})
