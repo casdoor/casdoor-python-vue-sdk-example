@@ -10,6 +10,16 @@ Example contains 2 parts:
 | Frontend | casdoor-vue-sdk    | Javascript + Vue | https://github.com/casdoor/casdoor-python-vue-sdk-example/tree/master/web |
 | Backend  | casdoor-python-sdk | Python + Flask   | https://github.com/casdoor/casdoor-python-vue-sdk-example                 |
 
+### Demo videos
+
+1. Normal login:
+
+![normalLogin](./img/normalLogin.gif)
+
+2. Silent login:
+
+![silentLogin](./img/silentLogin.gif)
+
 ## Installation
 
 Example uses Casdoor to manage members. So you need to create an organization and an application for the example in a Casdoor instance. For how to install Casdoor, see: https://casdoor.org/docs/basic/server-installation
@@ -109,13 +119,3 @@ For Windows:
   ```
 
 - Now, example runs its front end at port 8080 and runs it's back end at port 5000. You can modify the code and see what will happen.
-
-### Demo videos
-
-1. Normal login:
-
-![normalLogin](./img/normalLogin.gif)
-
-2. Silent login:
-
-![silentLogin](./img/silentLogin.gif)
