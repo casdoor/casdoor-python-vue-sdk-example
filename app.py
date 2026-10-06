@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+
 from flask import Flask, send_from_directory
 from flask_cors import CORS
+
 from api import api_blueprint
 from config import Config
-import os
 
 app = Flask(__name__)
 app.config.from_object(Config)

@@ -1,121 +1,122 @@
-<h1 align="center" style="border-bottom: none;">📦⚡️Casdoor Vue + Python example</h1>
-<h3 align="center">An example of casdoor-vue-sdk and casdoor-python-sdk</h3>
+# Casdoor Python (Flask) + Vue Example
 
-## Architecture
+[![Build](https://github.com/casdoor/casdoor-python-vue-sdk-example/actions/workflows/build.yml/badge.svg)](https://github.com/casdoor/casdoor-python-vue-sdk-example/actions/workflows/build.yml)
+[![License](https://img.shields.io/github/license/casdoor/casdoor-python-vue-sdk-example)](https://github.com/casdoor/casdoor-python-vue-sdk-example/blob/master/LICENSE)
+[![Discord](https://img.shields.io/discord/1022748306096537660?logo=discord&label=discord&color=5865F2)](https://discord.gg/5rPsrAzK7S)
 
-Example contains 2 parts:
+An example web app that signs users in with [Casdoor](https://casdoor.ai/), with a Vue frontend and a Python (Flask) backend.
 
-| Name     | SDK                | Language         | Source code                                                               |
-|----------|--------------------|------------------|---------------------------------------------------------------------------|
-| Frontend | casdoor-vue-sdk    | Javascript + Vue | https://github.com/casdoor/casdoor-python-vue-sdk-example/tree/master/web |
-| Backend  | casdoor-python-sdk | Python + Flask   | https://github.com/casdoor/casdoor-python-vue-sdk-example                 |
+| Part     | SDK                                                               | Language           | Port |
+|----------|-------------------------------------------------------------------|--------------------|------|
+| Frontend | [casdoor-vue-sdk](https://github.com/casdoor/casdoor-vue-sdk)     | JavaScript + Vue 3 | 8080 |
+| Backend  | [casdoor-python-sdk](https://github.com/casdoor/casdoor-python-sdk) | Python + Flask | 5000 |
 
-### Demo videos
-
-1. Normal login:
+Normal login:
 
 ![normalLogin](./img/normalLogin.gif)
 
-2. Silent login:
+Silent login:
 
 ![silentLogin](./img/silentLogin.gif)
 
-## Installation
+## How it works
 
-Example uses Casdoor to manage members. So you need to create an organization and an application for the example in a Casdoor instance. For how to install Casdoor, see: https://casdoor.ai/docs/basic/server-installation/
+1. The frontend redirects the user to the Casdoor sign-in page (`getSigninUrl()` of casdoor-vue-sdk).
+2. After signing in, Casdoor redirects back to `http://localhost:8080/callback` with `code` and `state`.
+3. The callback page sends them to the backend: `POST /api/signin?code=...&state=...`.
+4. The backend exchanges the code for an access token (`sdk.get_oauth_token()`), verifies it with the certificate (`sdk.parse_jwt_token()`) and keeps the user in the session.
+5. The frontend reads the signed-in user from `GET /api/get-account` and signs out with `POST /api/signout`.
 
-### Get the code
+| API                     | Description                                             |
+|-------------------------|---------------------------------------------------------|
+| `POST /api/signin`      | Exchanges the code for a token and starts the session   |
+| `GET /api/get-account`  | Returns the user of the session                         |
+| `POST /api/signout`     | Ends the session                                        |
 
-```shell
-git clone https://github.com/casdoor/casdoor-python-vue-sdk-example
-```
+## Prerequisites
+
+- Python 3.9+
+- Node.js 18+ and Yarn
+- A Casdoor server. The example is preconfigured for the public demo server https://door.casdoor.com, so it runs as is. To use your own, see [Casdoor installation](https://casdoor.ai/docs/basic/server-installation).
 
 ## Configuration
 
+Skip this section to try the example with the public demo server.
+
+In your Casdoor, create (or reuse) an organization and an application, and add `http://localhost:8080/callback` to the application's **Redirect URLs**. Then fill in both parts:
+
 ### Frontend
 
-```js
-// in web/src/config.js
-export let serverUrl = `http://localhost:5000` // port where Python backend runs
-```
+[web/src/main.js](web/src/main.js):
 
 ```js
-// in web/src/main.js
 const config = {
   serverUrl: "https://door.casdoor.com", // Casdoor server URL
-  clientId: "294b09fbc17f95daf2fe",
-  organizationName: "casbin",
-  appName: "app-vue-python-example",
+  clientId: "294b09fbc17f95daf2fe", // client ID of the application
+  organizationName: "casbin", // organization of the application
+  appName: "app-vue-python-example", // name of the application
   redirectPath: "/callback",
 };
 ```
 
+[web/src/config.js](web/src/config.js) holds the URL of the backend:
+
+```js
+export let serverUrl = `http://localhost:5000`
+```
+
 ### Backend
 
+[config.py](config.py):
+
 ```python
-# in config.py
-# certificate:get in your Casdoor server -> application
+# the certificate of the cert used by the application: Casdoor -> Certs -> the cert -> Certificate
 certificate = '''-----BEGIN CERTIFICATE-----
-MIIE+TCCAuGgAwIBAgIDAeJAMA0GCSqGSIb3DQEBCwUAMDYxHTAbBgNVBAoTFENh
-c2Rvb3IgT3JnYW5pemF0aW9uMRUwEwYDVQQDEwxDYXNkb29yIENlcnQwHhcNMjEx
-MDE1MDgxMTUyWhcNNDExMDE1MDgxMTUyWjA2MR0wGwYDVQQKExRDYXNkb29yIE9y
-Z2FuaXphdGlvbjEVMBMGA1UEAxMMQ2FzZG9vciBDZXJ0MIICIjANBgkqhkiG9w0B
-AQEFAAOCAg8AMIICCgKCAgEAsInpb5E1/ym0f1RfSDSSE8IR7y+lw+RJjI74e5ej
-rq4b8zMYk7HeHCyZr/hmNEwEVXnhXu1P0mBeQ5ypp/QGo8vgEmjAETNmzkI1NjOQ
-CjCYwUrasO/f/MnI1C0j13vx6mV1kHZjSrKsMhYY1vaxTEP3+VB8Hjg3MHFWrb07
-uvFMCJe5W8+0rKErZCKTR8+9VB3janeBz//zQePFVh79bFZate/hLirPK0Go9P1g
-OvwIoC1A3sarHTP4Qm/LQRt0rHqZFybdySpyWAQvhNaDFE7mTstRSBb/wUjNCUBD
-PTSLVjC04WllSf6Nkfx0Z7KvmbPstSj+btvcqsvRAGtvdsB9h62Kptjs1Yn7GAuo
-I3qt/4zoKbiURYxkQJXIvwCQsEftUuk5ew5zuPSlDRLoLByQTLbx0JqLAFNfW3g/
-pzSDjgd/60d6HTmvbZni4SmjdyFhXCDb1Kn7N+xTojnfaNkwep2REV+RMc0fx4Gu
-hRsnLsmkmUDeyIZ9aBL9oj11YEQfM2JZEq+RVtUx+wB4y8K/tD1bcY+IfnG5rBpw
-IDpS262boq4SRSvb3Z7bB0w4ZxvOfJ/1VLoRftjPbLIf0bhfr/AeZMHpIKOXvfz4
-yE+hqzi68wdF0VR9xYc/RbSAf7323OsjYnjjEgInUtRohnRgCpjIk/Mt2Kt84Kb0
-wn8CAwEAAaMQMA4wDAYDVR0TAQH/BAIwADANBgkqhkiG9w0BAQsFAAOCAgEAn2lf
-DKkLX+F1vKRO/5gJ+Plr8P5NKuQkmwH97b8CS2gS1phDyNgIc4/LSdzuf4Awe6ve
-C06lVdWSIis8UPUPdjmT2uMPSNjwLxG3QsrimMURNwFlLTfRem/heJe0Zgur9J1M
-8haawdSdJjH2RgmFoDeE2r8NVRfhbR8KnCO1ddTJKuS1N0/irHz21W4jt4rxzCvl
-2nR42Fybap3O/g2JXMhNNROwZmNjgpsF7XVENCSuFO1jTywLaqjuXCg54IL7XVLG
-omKNNNcc8h1FCeKj/nnbGMhodnFWKDTsJcbNmcOPNHo6ixzqMy/Hqc+mWYv7maAG
-Jtevs3qgMZ8F9Qzr3HpUc6R3ZYYWDY/xxPisuKftOPZgtH979XC4mdf0WPnOBLqL
-2DJ1zaBmjiGJolvb7XNVKcUfDXYw85ZTZQ5b9clI4e+6bmyWqQItlwt+Ati/uFEV
-XzCj70B4lALX6xau1kLEpV9O1GERizYRz5P9NJNA7KoO5AVMp9w0DQTkt+LbXnZE
-HHnWKy8xHQKZF9sR7YBPGLs/Ac6tviv5Ua15OgJ/8dLRZ/veyFfGo2yZsI+hKVU5
-nCCJHBcAyFnm1hdvdwEdH33jDBjNB6ciotJZrf/3VYaIWSalADosHAgMWfXuWP+h
-8XKXmzlxuHbTMQYtZPDgspS5aK+S4Q9wb8RRAYo=
+...
 -----END CERTIFICATE-----'''
 
 CASDOOR_SDK = CasdoorSDK(
-        endpoint='https://door.casdoor.com', # Casdoor server URL
-        client_id='294b09fbc17f95daf2fe',
-        client_secret='dd8982f7046ccba1bbd7851d5c1ece4e52bf039d',
-        certificate=certificate,
-        org_name='casbin',
-        application_name='app-vue-python-example',
-    )
+    endpoint='https://door.casdoor.com',  # Casdoor server URL
+    client_id='294b09fbc17f95daf2fe',  # client ID of the application
+    client_secret='dd8982f7046ccba1bbd7851d5c1ece4e52bf039d',  # client secret of the application
+    certificate=certificate,
+    org_name='casbin',  # organization of the application
+    application_name='app-vue-python-example',  # name of the application
+)
 ```
 
-- install dependencies
+## Run
 
-  ```shell
-  PS .\casdoor-python-vue-sdk-example\web> yarn install
-  PS .\casdoor-python-vue-sdk-example> pip install -r requirements.txt
-  ```
+```shell
+git clone https://github.com/casdoor/casdoor-python-vue-sdk-example
+cd casdoor-python-vue-sdk-example
+```
 
-- run
+Backend, at http://localhost:5000:
 
-For Linux:
+```shell
+python -m venv venv
+source venv/bin/activate  # on Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python app.py
+```
 
-  ```
-  user@machine:/casdoor-python-vue-sdk-example/web$ yarn serve
-  user@machine:/casdoor-python-vue-sdk-example$ ./venv/Scripts/python app.py
-  ```
+Frontend, at http://localhost:8080:
 
-For Windows:
+```shell
+cd web
+yarn install
+yarn serve
+```
 
-  ```
-  PS .\casdoor-python-vue-sdk-example\web> yarn serve
-  PS .\casdoor-python-vue-sdk-example> venv\Scripts\python.exe app.py
-  ```
+Open http://localhost:8080 and click **Sign in**.
 
-- Now, example runs its front end at port 8080 and runs it's back end at port 5000. You can modify the code and see what will happen.
+## Resources
+
+- [Casdoor documentation](https://casdoor.ai/docs/overview)
+- [casdoor-python-sdk](https://github.com/casdoor/casdoor-python-sdk)
+- [casdoor-vue-sdk](https://github.com/casdoor/casdoor-vue-sdk)
+
+## License
+
+[Apache-2.0](LICENSE)

@@ -14,13 +14,13 @@
 
 from functools import wraps
 
-from flask import redirect, request, session, jsonify
+from flask import jsonify, session
 
 
 def authz_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
-        if 'casdoorUser' in session.keys():
+        if 'casdoorUser' in session:
             return f(*args, **kwargs)
         else:
             return jsonify({'status': 'error', 'msg': 'casdoorUser session key does not exist'})

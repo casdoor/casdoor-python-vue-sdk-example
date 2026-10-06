@@ -13,23 +13,10 @@
 # limitations under the License.
 
 from casdoor import CasdoorSDK
-from flask import jsonify, redirect, current_app, request, session, make_response, render_template
+from flask import current_app, jsonify, make_response, render_template, session
 from flask_restful import Resource, reqparse
-import json
+
 from .utils import authz_required
-
-
-def parse_error(json_string):
-    if 'error_description' not in json_string:
-        return None, None
-
-    try:
-        data = json.loads(json_string)
-        error = data.get('error', None)
-        error_description = data.get('error_description', None)
-        return error, error_description
-    except json.JSONDecodeError:
-        return "JSONDecodeError", f"the input is not valid JSON:{json_string}"
 
 
 class SignIn(Resource):
@@ -40,13 +27,11 @@ class SignIn(Resource):
         parser.add_argument('state', required=True, location='args')
         args = parser.parse_args()
         code = args['code']
-        state = args['state']
 
         sdk: CasdoorSDK = current_app.config.get('CASDOOR_SDK')
         token = sdk.get_oauth_token(code)
-        err, error_description = parse_error(str(token))
-        if err is not None:
-            return jsonify({'status': 'error', 'msg': f"{err}: {error_description}"})
+        if 'error' in token:
+            return jsonify({'status': 'error', 'msg': f"{token['error']}: {token.get('error_description', '')}"})
 
         user = sdk.parse_jwt_token(token['access_token'])
         session['casdoorUser'] = user

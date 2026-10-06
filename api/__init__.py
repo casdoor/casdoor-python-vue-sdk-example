@@ -16,8 +16,7 @@ from flask import Blueprint
 from flask_restful import Api
 
 from .account import Account
-from .index import Index
-from .login import SignIn, ToLogin, SignOut
+from .login import SignIn, SignOut, ToLogin
 
 api_blueprint = Blueprint('api', __name__)
 api = Api(api_blueprint)

@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from casdoor import CasdoorSDK
-from flask import current_app, jsonify, session
+from flask import jsonify, session
 from flask_restful import Resource
 
 from .utils import authz_required
@@ -23,8 +22,5 @@ class Account(Resource):
 
     @authz_required
     def get(self):
-        sdk: CasdoorSDK = current_app.config.get('CASDOOR_SDK')
         user = session.get('casdoorUser')
-        print(user)
-        # user2 = sdk.get_user(user['name'])
         return jsonify({'status': 'ok', 'data': user})
